@@ -4,7 +4,11 @@ An interface for layuplist and short-term d-plan creation
 
 ## Setting up virtual environment
 
-Just run this: `python -m virtualenv env` to create a virtual environment
-Actually, follow this guide:
+Run this to install virtualenv: `python3 -m pip install --user virtualenv`
+Just run this: `python -m virtualenv env` to create a virtual environment.
+To activate (On Windows): `.\env\Scripts\activate`
+On Mac OS: `source env/bin/activate`
+For more info follow this guide:
 https://packaging.python.org/guides/installing-using-pip-and-virtualenv/
+Then run `pip install -r requirements.txt`
 
