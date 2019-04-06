@@ -5,20 +5,35 @@ import json
 
 http = urllib3.PoolManager()
 
-url = 'https://www.layuplist.com/search?q=COSC'
+departments = ["COSC", "PHIL", "HIST", "ENGS", "MATH"] # list of departments 
+
+url = f'https://www.layuplist.com/search?q={departments[0]}'
 response = http.request('GET', url)
 soup = BeautifulSoup(response.data)
 page_source = soup.prettify()
 
-# print(page_source)
-print(soup.title)
+# save the BeautifulSoup page source to a txt file
+with open("page_source.txt", 'w') as fp:
+    json.dump(page_source, fp)
 
-for link in soup.find_all('a'):
-    print(link.get('href'))
+# 1. get all the <tr> elements
+# 2. grab the onclick attribute as string and save it 
+# 3. grab the course URL from it: e.g. `/course/681` for COSC 1 
+# 4. save the course urls as dictionary with key-value pairs of 
+# "COURSE NAME" : "URL" ex/ "COSC 1" : "/course/681"
+# 4. loop through all of the course URLs and navigate to them iteratively 
+# 5. scrape each of the course webpages for medians/prof reviews/boolean of whether offered 19S
 
-with open("page_souce.txt", 'w') as fp:
-    json.dump(page_source)
-    
+url_list = []
+
+course_dict = {"COSC 01": {"url":"/course/680", "desc":"Introduction to Programming and Computation", "offered19S": True, "distrib":"TLA", }}
+
+for element in soup.find_all('tr'):
+    children = list(element.findChildren("td" , recursive=False))
+    url = element.get("onclick").split("=")[1][1:-2] # grabs the url of the course (ex/ '/course/681')
+    url_list.append(url)
+
+print(url_list)
 
 # Take out the <div> of name and get its value
 # name_box = soup.find(‘h1’, attrs={‘class’: ‘name’})
