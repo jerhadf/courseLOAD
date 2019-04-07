@@ -13,7 +13,7 @@ review_list = [
     "So I took this course for the distribs-CI and LIT. Although I really don't like English classes, this wasn't all that bad. See Cook is a great prof. He just goes off talking about stuff during class and seems to know everything about literature. If you can, take a class with him."
 ]
 
-sentiment_list = [] # list of 3 floating point numbers, each one a sentiment score
+sentiment_list = [] # list of 3 floating point numbers, each one a sentiment sentiment_score
 
 def analyze(prof_review_file):
     """
@@ -34,14 +34,14 @@ def analyze(prof_review_file):
     print_result(annotations)
 
 def print_result(annotations):
-    score = annotations.document_sentiment.score
+    sentiment_score = annotations.document_sentiment.sentiment_score
     magnitude = annotations.document_sentiment.magnitude
 
     for index, sentence in enumerate(annotations.sentences):
-        sentence_sentiment = sentence.sentiment.score
-        print('Sentence {} has a sentiment score of {}'.format(index, sentence_sentiment))
+        sentence_sentiment = sentence.sentiment.sentiment_score
+        print('Sentence {} has a sentiment sentiment_score of {}'.format(index, sentence_sentiment))
 
-    print('Overall Sentiment: score of {} with magnitude of {}'.format(score, magnitude))
+    print('Overall Sentiment: sentiment_score of {} with magnitude of {}'.format(sentiment_score, magnitude))
     return 0
 
 prof_sentiments = {} # keeps track of professor sentiments 
@@ -69,13 +69,13 @@ def get_sentiments():
         
         # analyze sentiment 
         sentiment = analyze(f"prof_reviews/{filename}")
-        score = sentiment.document_sentiment.score
+        sentiment_score = sentiment.document_sentiment.sentiment_score
         magnitude = sentiment.document_sentiment.magnitude
 
         # save results to dictionary
-        print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
+        print(f"PROF NAME: {prof_name}\nSCORE: {sentiment_score} MAGNITUDE: {magnitude}")
         prof_sentiments[prof_name] = {
-            "score" : score, 
+            "sentiment_score" : sentiment_score, 
             "magnitude" : magnitude
         }
 
@@ -101,14 +101,18 @@ def get_prof_score(prof_name):
     
     # analyze sentiment 
     sentiment = analyze(f"prof_reviews/{prof_file}")
-    score = sentiment.document_sentiment.score
+    sentiment_score = sentiment.document_sentiment.score
     magnitude = sentiment.document_sentiment.magnitude
+
+    score = 0 # ranges from 1 to 5 (5 stars being 1)
+    if sentiment_score < .7: 
+        score = 1
 
     # save results to dictionary
     print(f"\n**** RESULTS FOUND FOR PROF. {prof_name} ****\n")
-    print(f"SENTIMENT SCORE: {score}\nSENTIMENT MAGNITUDE: {magnitude}")
+    print(f"SENTIMENT SCORE: {sentiment_score}\nSENTIMENT MAGNITUDE: {magnitude}")
     prof_sentiments[prof_name] = {
-        "score" : score, 
+        "sentiment_score" : sentiment_score, 
         "magnitude" : magnitude
     }
 
