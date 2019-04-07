@@ -74,10 +74,12 @@ def get_courses(department):
     return course_dict
     
 
-for department in dept_codes[-6]: 
-    course_info = get_courses(department)
-
+for department in dept_codes: 
+    # don't know why but this department doesn't have a course list
+    if department == "SSOC": continue  
+    # save course info for every department
     print(f"\n **** COURSE INFO FOR {department} ****: \n")
+    course_info = get_courses(department)
     pprint(course_info)
 
     # saves the department dict to a json file
