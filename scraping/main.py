@@ -73,6 +73,7 @@ def get_courses(department):
 
     return course_dict
     
+all_course_urls = []
 
 for department in dept_codes: 
     # don't know why but this department doesn't have a course list
@@ -80,8 +81,16 @@ for department in dept_codes:
     # save course info for every department
     print(f"\n **** COURSE INFO FOR {department} ****: \n")
     course_info = get_courses(department)
-    pprint(course_info)
+    urls = [key['url'] for key in list(course_info.values())]
+    all_course_urls += urls
 
-    # saves the department dict to a json file
-    with open(f'data/{department}_dict.json', 'w') as fp:
-        json.dump(course_info, fp)
+    # # saves the department dict to a json file
+    # with open(f'data/{department}_dict.json', 'w') as fp:
+    #     json.dump(course_info, fp)
+
+all_courses_dict = {
+    "all_courses" : all_course_urls
+}
+
+with open(f'all_course_urls.json', 'w') as fp:
+    json.dump(all_courses_dict, fp)  
