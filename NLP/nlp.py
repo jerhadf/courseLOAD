@@ -55,12 +55,7 @@ if __name__  == '__main__':
             filenames.append(filename)
         return filenames
     
-    prof_sentiments = {
-        "ProfName": {
-            "score": "sentiment score", 
-            "magnitude": "sentiment magnitude"
-        }
-    }
+    prof_sentiments = {}
     
     def get_sentiments(): 
         """
@@ -68,19 +63,25 @@ if __name__  == '__main__':
         save the results to a dictionary 
         """
         for filename in get_prof_reviews(): 
+            # get the professor name
             prof_name = filename.replace(".txt", "")
+            
+            # analyze sentiment 
             sentiment = analyze(f"prof_reviews/{filename}")
             score = sentiment.document_sentiment.score
             magnitude = sentiment.document_sentiment.magnitude
-            print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
 
+            # save results to dictionary
+            print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
             prof_sentiments[prof_name] = {
                 "score" : score, 
                 "magnitude" : magnitude
             }
+
         return prof_sentiments
 
-    print(prof_sentiments)
+    print(get_sentiments())
+    
     # parser = argparse.ArgumentParser(
     #     description = __doc__,
     #     formatter_class = argparse.RawDescriptionHelpFormatter)
