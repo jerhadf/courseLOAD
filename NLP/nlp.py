@@ -26,6 +26,7 @@ def analyze(prof_review_file):
         type = enums.Document.Type.PLAIN_TEXT)
     annotations = client.analyze_sentiment(document=document)
 
+    return annotations
     print_result(annotations)
 
 def print_result(annotations):
@@ -41,7 +42,11 @@ def print_result(annotations):
 
 # parse the passed argument for the text filename and pass it to the analyze() function
 if __name__  == '__main__':
-    analyze("NLP/prof_reviews/reviews.txt")
+    sentiment = analyze("prof_reviews/Sample.txt")
+    score = sentiment.document_sentiment.score
+    magnitude = sentiment.document_sentiment.magnitude
+    print(f"SCORE: {score} MAGNITUDE: {magnitude}")
+
     # parser = argparse.ArgumentParser(
     #     description = __doc__,
     #     formatter_class = argparse.RawDescriptionHelpFormatter)
