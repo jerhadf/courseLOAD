@@ -93,9 +93,9 @@ def get_prof_score(prof_name):
 
     print(f"IS {prof_file} in {filename_list}??")
     if prof_file in filename_list: 
-        print(f"***YES: {prof_file} is in file list***")
+        print(f".... YES: {prof_file} is in file list ...")
     else:
-        print(f"***YES: {prof_file} is not in file list***")
+        print(f"... YES: {prof_file} is not in file list ...")
         return False 
     prof_index = filename_list.index(prof_file)
     
@@ -123,7 +123,7 @@ if __name__  == '__main__':
         prof_name = sys.argv[1]
     
     prof_sentiment = get_prof_score(prof_name)
-    pprint(prof_sentiment)
+    print(prof_sentiment)
     
     # parser = argparse.ArgumentParser(
     #     description = __doc__,
