@@ -43,20 +43,44 @@ def print_result(annotations):
 # parse the passed argument for the text filename and pass it to the analyze() function
 if __name__  == '__main__':
     import os
-
-    directory = os.fsencode("prof_reviews")
-
-    filenames = []
-    for file in os.listdir(directory):
-        filename = os.fsdecode(file)
-        filenames.append(filename)
-    print(filenames)
     
-    # sentiment = analyze("prof_reviews/Sample.txt")
-    # score = sentiment.document_sentiment.score
-    # magnitude = sentiment.document_sentiment.magnitude
-    # print(f"SCORE: {score} MAGNITUDE: {magnitude}")
+    def get_prof_reviews():
+        """
+        Gets a list of all the filenames in the prof_reviews folder
+        """
+        directory = os.fsencode("prof_reviews")
+        filenames = []
+        for file in os.listdir(directory):
+            filename = os.fsdecode(file)
+            filenames.append(filename)
+        return filenames
+    
+    prof_sentiments = {
+        "ProfName": {
+            "score": "sentiment score", 
+            "magnitude": "sentiment magnitude"
+        }
+    }
+    
+    def get_sentiments(): 
+        """
+        Get the sentiment scores and magnitudes for each professor reviews file and then 
+        save the results to a dictionary 
+        """
+        for filename in get_prof_reviews(): 
+            prof_name = filename.replace(".txt", "")
+            sentiment = analyze(f"prof_reviews/{filename}")
+            score = sentiment.document_sentiment.score
+            magnitude = sentiment.document_sentiment.magnitude
+            print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
 
+            prof_sentiments[prof_name] = {
+                "score" : score, 
+                "magnitude" : magnitude
+            }
+        return prof_sentiments
+
+    print(prof_sentiments)
     # parser = argparse.ArgumentParser(
     #     description = __doc__,
     #     formatter_class = argparse.RawDescriptionHelpFormatter)
