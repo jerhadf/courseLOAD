@@ -46,13 +46,11 @@ if __name__  == '__main__':
 
     directory = os.fsencode("prof_reviews")
 
+    filenames = []
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
-        if filename.endswith(".asm") or filename.endswith(".py"): 
-            print(os.path.join(directory, filename))
-            continue
-        else:
-            continue
+        filenames.append(filename)
+    print(filenames)
     
     # sentiment = analyze("prof_reviews/Sample.txt")
     # score = sentiment.document_sentiment.score
