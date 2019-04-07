@@ -4,26 +4,23 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from pprint import pprint # pretty print
 import json
 import mechanize
-import urllib2 
-import cookielib
+import requests
 
 # login to LayupList
 def login(url):
     """ 
     Login to the site
     """
-    cj = cookielib.CookieJar()
-    br = mechanize.Browser()
-    br.set_cookiejar(cj)
-    br.open(url)
+    username = "jeremy.hadfield.21@dartmouth.edu"
+    password = "hackerz"
+    response = requests.get(url, auth=(username, password)) # open the course url page
+    print(str(response))
+    return
+    soup = BeautifulSoup(response.data, features="html.parser")
+    page_source = soup.prettify()
 
-    br.select_form(nr=0)
-    br.form['username'] = 'username'
-    br.form['password'] = 'password.'
-    br.submit()
-
+    print(page_source)
     print("LOGGED IN!")
-
 
 def get_course_urls(dept): 
     """ 
@@ -65,7 +62,6 @@ def get_prof_reviews(prof_url):
     for element in soup.find_all('td'): 
         print(element)
 
-login("https://www.layuplist.com/course/682")
 # cosc_urls = get_course_urls("COSC")
 # CS1_url = cosc_urls[0]
 # CS1_prof_urls = get_prof_urls(CS1_url)
