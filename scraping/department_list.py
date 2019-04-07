@@ -59,4 +59,9 @@ def get_dept_names():
        
     return dept_dict
 
-pprint(get_dept_names())
+department_dictionary = get_dept_names()
+pprint(department_dictionary)
+
+# saves the department dict to a json file
+with open('departments.json', 'w') as fp:
+    json.dump(department_dictionary, fp)
