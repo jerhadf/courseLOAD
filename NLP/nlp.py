@@ -113,14 +113,17 @@ def get_prof_score(prof_name):
         score = 3
     elif .2 < sentiment_score <= .6:
         score = 4
-    else .6 < sentiment_score <= 1:
+    elif .6 < sentiment_score <= 1:
         score = 5
+    else: 
+        score = 0
 
     # save results to dictionary
-    print(f"\n**** RESULTS FOUND FOR PROF. {prof_name} ****\n")
+    print(f"\n**** RESULTS FOUND FOR Professor {prof_name} ****\n")
     print(f"SENTIMENT SCORE: {sentiment_score}")
     print(f"SENTIMENT MAGNITUDE: {magnitude}")
-    print(f"PROFESSOR SCORE: {score} STARS: {"*" * score})
+    print(f"PROFESSOR SCORE: {score}")
+    print(f"STARS: {'*' * score}\n")
     prof_sentiments[prof_name] = {
         "sentiment_score" : sentiment_score, 
         "magnitude" : magnitude
