@@ -105,7 +105,8 @@ def get_prof_score(prof_name):
     magnitude = sentiment.document_sentiment.magnitude
 
     # save results to dictionary
-    print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
+    print(f"\n**** RESULTS FOUND FOR PROF. {prof_name} ****\n")
+    print(f"SENTIMENT SCORE: {score}\nSENTIMENT MAGNITUDE: {magnitude}")
     prof_sentiments[prof_name] = {
         "score" : score, 
         "magnitude" : magnitude
