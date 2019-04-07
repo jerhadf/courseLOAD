@@ -105,12 +105,22 @@ def get_prof_score(prof_name):
     magnitude = sentiment.document_sentiment.magnitude
 
     score = 0 # ranges from 1 to 5 (5 stars being 1)
-    if sentiment_score < .7: 
+    if -1 <= sentiment_score <= -.6:
         score = 1
+    elif -.6 < sentiment_score <= -.2:
+        score = 2
+    elif -.2 < sentiment_score <= .2:
+        score = 3
+    elif .2 < sentiment_score <= .6:
+        score = 4
+    else .6 < sentiment_score <= 1:
+        score = 5
 
     # save results to dictionary
     print(f"\n**** RESULTS FOUND FOR PROF. {prof_name} ****\n")
-    print(f"SENTIMENT SCORE: {sentiment_score}\nSENTIMENT MAGNITUDE: {magnitude}")
+    print(f"SENTIMENT SCORE: {sentiment_score}")
+    print(f"SENTIMENT MAGNITUDE: {magnitude}")
+    print(f"PROFESSOR SCORE: {score} STARS: {"*" * score})
     prof_sentiments[prof_name] = {
         "sentiment_score" : sentiment_score, 
         "magnitude" : magnitude
