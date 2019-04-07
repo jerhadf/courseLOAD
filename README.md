@@ -14,10 +14,20 @@ An interface for layuplist and short-term d-plan creation
 * For more info follow this guide: https://packaging.python.org/guides/installing-using-pip-and-virtualenv/
 * Then run `pip install -r requirements.txt`
 
-# Tools Used 
+# Tools Used
 
 * *Google Cloud Natural Language Processing API* : used to perform sentiment analysis of professor reviews
 
 * *BeautifulSoup* : Python library to scrape the web
 
 * *Python* : The most beautiful language on this planet. We know the Zen of Python by heart
+
+## Challenges
+
+* *Logging in to LayupList* : 
+
+* *Getting LayupList data* :
+
+* *Converting Plaintext Reviews to a Score* : 
+
+* *Integrating with DALI Lab D-Planner project* :
