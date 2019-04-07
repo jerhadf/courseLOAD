@@ -2,8 +2,10 @@ from bs4 import BeautifulSoup # python web scraping library
 import urllib3 # tool for opening URLs with HTTP requests
 from pprint import pprint # pretty print
 import json
-# find dartmouth page with the department code list and scrape it into a list
-departments = ["COSC", "PHIL", "HIST", "ENGS", "MATH"] # list of departments 
+
+# list of department codes
+departments = ['AAAS', 'AMEL', 'AMES', 'ANTH', 'ARAB', 'ARTH', 'ASCL', 'ASTR', 'BIOL', 'CHEM', 'CHIN', 'CLST', 'COCO', 'COGS', 'COLT', 'COSC', 'CRWT', 'EARS', 'ECON', 'EDUC', 'ENGL', 'ENGS', 'ENVS', 'FILM', 'FREN', 'FRIT', 'GEOG', 'GERM', 'GOVT', 'GRK', 'HEBR', 'HIST', 'HUM', 'INTS', 'ITAL', 'JAPN', 'JWST', 'LACS', 'LAT', 'LATS', 'LING', 'MATH', 'MES', 'MUS',
+'NAS', 'PBPL', 'PHIL', 'PHYS', 'PORT', 'PSYC', 'QSS', 'REL', 'RUSS', 'SART', 'SOCY', 'SPAN', 'SPEE', 'SSOC', 'THEA', 'TUCK', 'WGSS', 'WRIT']
 
 def get_courses(department):
     """

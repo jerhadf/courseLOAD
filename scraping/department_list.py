@@ -1,5 +1,11 @@
+from bs4 import BeautifulSoup # python web scraping library
+import urllib3 # tool for opening URLs with HTTP requests
+from pprint import pprint # pretty print
+import json
+
 dept_codes = [] # code for the dept
 course_nums = [] # number of courses offered for the dept
+dept_names = []
 dept_dict = {}
 
 def get_dept_names():
@@ -7,7 +13,7 @@ def get_dept_names():
     Grabs the dept name info for the given department code
     @arg department -- the academic department (ex/ "COSC")
     """
-   
+    
     http = urllib3.PoolManager()
 
     url = "https://www.layuplist.com/departments"
@@ -16,7 +22,12 @@ def get_dept_names():
     page_source = soup.prettify()
 
     # function to remove <td> tags from a string
-    remove_tags = lambda element : element.replace("<td><a>", "").replace("</a></td>", "").strip()
+    remove_tags = lambda element : (element
+        .replace("<td><a>", "")
+        .replace("</a></td>", "")
+        .replace("<td>", "")
+        .replace("</td>", "")
+        .strip())
 
     # finds all the <tr> elements in the page source
     for element in soup.find_all('tr'):
@@ -43,14 +54,9 @@ def get_dept_names():
 
         dept_dict[deptcode] = {
             "dept_name" : deptname, # the full name of department
-            "course_num" : course_nums # the number of courses offered in department
+            "total_courses" : coursenum # the number of courses offered in department
         }
        
-        return dept_dict
+    return dept_dict
 
 pprint(get_dept_names())
-
-# for department in departments:
-#     course_info = get_courses(department)
-#     print(f"\n COURSE INFO FOR {department}: \n")
-#     pprint(course_info)
