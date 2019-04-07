@@ -1,4 +1,0 @@
-export API_KEY=AIzaSyC7ee7QHRsQoyEAVZpXoHQqbpRF1YMYw1s
-
-curl "https://language.googleapis.com/v1/documents:analyzeSentiment?key=${API_KEY}" \
-  -s -X POST -H "Content-Type: application/json" --data-binary @request.json
