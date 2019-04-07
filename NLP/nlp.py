@@ -41,4 +41,4 @@ def print_result(annotations):
     print('Overall Sentiment: score of {} with magnitude of {}'.format(score, magnitude))
     return 0
 
-run: /Users/johnmcdonald/Desktop/layuplister/env/bin/python /Users/johnmcdonald/Desktop/layuplister/NLP/nlp.py
+# run: /Users/johnmcdonald/Desktop/layuplister/env/bin/python /Users/johnmcdonald/Desktop/layuplister/NLP/nlp.py
