@@ -88,9 +88,6 @@ for department in dept_codes:
     # with open(f'data/{department}_dict.json', 'w') as fp:
     #     json.dump(course_info, fp)
 
-all_courses_dict = {
-    "all_courses" : all_course_urls
-}
-
-with open(f'all_course_urls.json', 'w') as fp:
-    json.dump(all_courses_dict, fp)  
+with open('all_course_urls.txt', 'w') as f:
+    for item in all_course_urls:
+        f.write("%s\n" % item) 
