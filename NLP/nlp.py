@@ -98,26 +98,20 @@ def get_prof_score(prof_name):
         print(f"***YES: {prof_file} is not in file list***")
         return False 
     prof_index = filename_list.index(prof_file)
-
-    print("FINISHED")
-    return
-
-    # # get the professor name
-    # prof_name = filename.replace(".txt", "")
     
-    # # analyze sentiment 
-    # sentiment = analyze(f"prof_reviews/{filename}")
-    # score = sentiment.document_sentiment.score
-    # magnitude = sentiment.document_sentiment.magnitude
+    # analyze sentiment 
+    sentiment = analyze(f"prof_reviews/{prof_file}")
+    score = sentiment.document_sentiment.score
+    magnitude = sentiment.document_sentiment.magnitude
 
-    # # save results to dictionary
-    # print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
-    # prof_sentiments[prof_name] = {
-    #     "score" : score, 
-    #     "magnitude" : magnitude
-    # }
+    # save results to dictionary
+    print(f"PROF NAME: {prof_name}\nSCORE: {score} MAGNITUDE: {magnitude}")
+    prof_sentiments[prof_name] = {
+        "score" : score, 
+        "magnitude" : magnitude
+    }
 
-    # return prof_sentiments
+    return prof_sentiments
 
 # parse the passed argument for the text filename and pass it to the analyze() function
 if __name__  == '__main__':
@@ -128,7 +122,8 @@ if __name__  == '__main__':
     else: 
         prof_name = sys.argv[1]
     
-    get_prof_score(prof_name)
+    prof_sentiment = get_prof_score(prof_name)
+    pprint(prof_sentiment)
     
     # parser = argparse.ArgumentParser(
     #     description = __doc__,
