@@ -42,10 +42,22 @@ def print_result(annotations):
 
 # parse the passed argument for the text filename and pass it to the analyze() function
 if __name__  == '__main__':
-    sentiment = analyze("prof_reviews/Sample.txt")
-    score = sentiment.document_sentiment.score
-    magnitude = sentiment.document_sentiment.magnitude
-    print(f"SCORE: {score} MAGNITUDE: {magnitude}")
+    import os
+
+    directory = os.fsencode("prof_reviews")
+
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if filename.endswith(".asm") or filename.endswith(".py"): 
+            print(os.path.join(directory, filename))
+            continue
+        else:
+            continue
+    
+    # sentiment = analyze("prof_reviews/Sample.txt")
+    # score = sentiment.document_sentiment.score
+    # magnitude = sentiment.document_sentiment.magnitude
+    # print(f"SCORE: {score} MAGNITUDE: {magnitude}")
 
     # parser = argparse.ArgumentParser(
     #     description = __doc__,
