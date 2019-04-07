@@ -1,9 +1,14 @@
 from bs4 import BeautifulSoup # python web scraping library
 import urllib3 # tool for opening URLs with HTTP requests
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from pprint import pprint # pretty print
 import json
-# find dartmouth page with the department code list and scrape it into a list
-departments = ["COSC", "PHIL", "HIST", "ENGS", "MATH"] # list of departments 
+
+# get the department dictionary from the json
+with open('data/departments.json') as json_file:  
+    dept_data = json.load(json_file)
+
+dept_codes = list(dept_data.keys())
 
 def get_courses(department):
     """
@@ -15,7 +20,7 @@ def get_courses(department):
 
     url = f'https://www.layuplist.com/search?q={department}'
     response = http.request('GET', url)
-    soup = BeautifulSoup(response.data)
+    soup = BeautifulSoup(response.data, features="html.parser")
     page_source = soup.prettify()
 
     # save the BeautifulSoup page source to a txt file
@@ -23,7 +28,12 @@ def get_courses(department):
         json.dump(page_source, fp)
 
     # function to remove <td> tags from a string
-    clean_td = lambda element : element.replace("<td>", "").replace("</td>", "").strip()
+    remove_tags = lambda element : (element
+        .replace("<td><a>", "")
+        .replace("</a></td>", "")
+        .replace("<td>", "")
+        .replace("</td>", "")
+        .strip())
 
     # keeps track of course offerings for given departments
     course_dict = {}     # course_code : course_desc, distribs, offered, url
@@ -43,13 +53,15 @@ def get_courses(department):
         children = list(element.findChildren("td" , recursive=False))
         children = list(map(str, children)) # convert elements to str
 
-        # grabs each value and cleans it up
+        # grabs each value and cleans it up 
         name = children[0].split('<')[2].split(': ') # gets the full course name
+
         course_desc = name[1]
         course_code = name[0][2:]
         offered = True if "Offered" in children[1] else False # gets whether it's offered in term
         url = element.get("onclick").split("=")[1][1:-2] # grabs the url of the course (ex/ '/course/681')
-        distribs = clean_td(children[2]).split() # saves the distributives for this course
+        url = f"https://www.layuplist.com{url}" # saves the full layuplist url
+        distribs = remove_tags(children[2]).split() # saves the distributives for this course
 
         # save the data to the course dictionary 
         course_dict[course_code] = { 
@@ -59,23 +71,23 @@ def get_courses(department):
             "distribs": distribs
         }
 
-        pprint(course_dict)
-        return course_dict
+    return course_dict
+    
+all_course_urls = []
 
-for department in departments: 
+for department in dept_codes: 
+    # don't know why but this department doesn't have a course list
+    if department == "SSOC": continue  
+    # save course info for every department
+    print(f"\n **** COURSE INFO FOR {department} ****: \n")
     course_info = get_courses(department)
-    print(f"\n COURSE INFO FOR {department}: \n")
-    pprint(course_info)
-# Take out the <div> of name and get its value
-# name_box = soup.find(‘h1’, attrs={‘class’: ‘name’})
+    urls = [key['url'] for key in list(course_info.values())]
+    all_course_urls += urls
 
-# # specify the layuplist url - searching for COSC courses
-# layuplist = "https://www.layuplist.com/search?q=COSC"
+    # # saves the department dict to a json file
+    # with open(f'data/{department}_dict.json', 'w') as fp:
+    #     json.dump(course_info, fp)
 
-# # query the website and return the html to the variable ‘page’
-# page = urllib3.urlopen(layuplist)
-
-# # parse the html using beautiful soup and store in variable `soup`
-# soup = BeautifulSoup(page, 'html.parser')
-
-# print(page)
+with open('all_course_urls.txt', 'w') as f:
+    for item in all_course_urls:
+        f.write("%s\n" % item) 
