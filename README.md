@@ -2,6 +2,8 @@
 
 A tool to aggregate Layuplist reviews and convert them to a numerical score, and an interface for D-Plan creation. 
 
+**Check out the [pitch deck](https://docs.google.com/presentation/d/1oghjlBOpGyTMqBJFeK1bzHa5rUXVk4qJZ1WkM3_oGCk/edit?usp=sharing)!**
+
 ## Description
 
 courseLOAD began as a project attempting to solve a recurring issue nearly all Dartmouth students experience when planning out their course loads with respect to their D-PLAN. Course listings are disparate and one has to peruse through multiple departmental sites in order to see which courses are offered in which terms. courseLOAD planned to overcome this by scraping departmental sites and recommending sample D-PLANs depending on student specifications on major/minor as well as professor preferences etc. We also wanted to include a simplified professor rating system using Google Cloud Platform’s sentiment analysis API in tandem with LayupList to aggregate sentiment and magnitude score for each individual professor's reviews on LayupList.
