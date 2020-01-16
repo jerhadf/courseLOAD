@@ -1,4 +1,4 @@
-# layuplister
+# courseLOAD
 
 A tool to aggregate Layuplist reviews and convert them to a numerical score, and an interface for D-Plan creation. 
 
