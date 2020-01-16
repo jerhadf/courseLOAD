@@ -1,6 +1,20 @@
 # layuplister
 
-An interface for layuplist and short-term d-plan creation
+A tool to aggregate Layuplist reviews and convert them to a numerical score, and an interface for D-Plan creation. 
+
+## Description
+
+courseLOAD began as a project attempting to solve a recurring issue nearly all Dartmouth students experience when planning out their course loads with respect to their D-PLAN. Course listings are disparate and one has to peruse through multiple departmental sites in order to see which courses are offered in which terms. courseLOAD planned to overcome this by scraping departmental sites and recommending sample D-PLANs depending on student specifications on major/minor as well as professor preferences etc. We also wanted to include a simplified professor rating system using Google Cloud Platform’s sentiment analysis API in tandem with LayupList to aggregate sentiment and magnitude score for each individual professor's reviews on LayupList.
+
+However, our plans came to a halt when we realised that DALI Lab already had a project in the works dealing with our exact problem! Upon talking to the team, we decided that we would focus our work on the professor rating system using sentiment analysis. The team at DALI offered to collaborate with us after HackDartmouth and merge our functionalities.
+
+# Tools Used
+
+* *Google Cloud Natural Language Processing API* : used to perform sentiment analysis of professor reviews
+
+* *BeautifulSoup* : Python library to scrape the web
+
+* *Python* : The most beautiful language on this planet. We know the Zen of Python by heart
 
 ## Installation
 
@@ -14,27 +28,11 @@ An interface for layuplist and short-term d-plan creation
 * For more info follow this guide: https://packaging.python.org/guides/installing-using-pip-and-virtualenv/
 * Then run `pip install -r requirements.txt`
 
-# Tools Used
-
-* *Google Cloud Natural Language Processing API* : used to perform sentiment analysis of professor reviews
-
-* *BeautifulSoup* : Python library to scrape the web
-
-* *Python* : The most beautiful language on this planet. We know the Zen of Python by heart
-
-##Description
-* *courseLOAD began as a project attempting to solve a recurring issue nearly all Dartmouth students experience when planning out their course loads with respect to their D-PLAN. Course listings are disparate and one has to peruse through multiple departmental sites in order to see which courses are offered in which terms. courseLOAD planned to overcome this by scraping departmental sites and recommending sample D-PLANs depending on student specifications on major/minor as well as professor preferences etc. We also wanted to include a simplified professor rating system using Google Cloud Platform’s sentiment analysis API in tandem with LayupList to aggregate sentiment and magnitude score for each individual professor's reviews on LayupList.
-
-
-However, our plans came to a halt when we realised that DALI Lab already had a project in the works dealing with our exact problem! Upon talking to the team, we decided that we would focus our work on the professor rating system using sentiment analysis. The team at DALI offered to collaborate with us after HackDartmouth and merge our functionalities.
-
-
 ## Challenges
 
 * *Logging in to LayupList* : LayupList requires login credentials to access data. Required using   `mechanize` module to navigate through webforms on LayupList without logging in. Without access to API key, we had to c
 
 * *Getting LayupList data* : Used `mechanize` libraries for Python, `urlliib`, and BeautifulSoup to extract data from site --> Clean and process data --> feed as text files into NLP model to analyze reviews sentiment and find score for professors.
-
 
 * *Converting Plaintext Reviews to a Score* : Cleaned and processed extracted HTML data form LayupList to place every review for every professor into individual text files that can be passed through NLP model to generate sentiment and magnitude score. Wanted to aggregate an overall score for each professor which required running NLP model on each sentence and aggregating sentiment/magnitude values for each sentence into an overall sentiment and magntitude score for each professor. 
 
